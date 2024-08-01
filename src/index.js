@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const Referral = require('./schemas/referral.js');  // Import the referral schema
 
@@ -9,6 +10,9 @@ const port = 3000;
 
 // Enable Mongoose debugging
 mongoose.set('debug', true);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -60,6 +64,30 @@ app.get('/api/v1/referral', async (req, res) => {
     }
 });
 
+app.put('/api/v1/referral', async (req, res) => {
+
+    try {
+        const { referralCode, status, reward } = req.body;
+        const referral = await Referral.findOneAndUpdate(
+            { referralCode },
+            { status, reward },
+            { new: true }
+        );
+
+        if (referral) {
+            res.json({
+                referrerId: referral.referrerId,
+                referredId: referral.referredId,
+                status: referral.status,
+                reward: referral.reward
+            });
+        } else {
+            res.status(404).send('Referral not found');
+        }
+    } catch (error) {
+        res.status(500).send('Error updating referral: ' + error.message);
+    }
+});
 app.get('/', (req, res) => {
     res.send('Server works');
 });

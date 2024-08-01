@@ -23,3 +23,8 @@ http://localhost:3000/api/v1/referral?referralCode=ref001
 ```bash
 http://localhost:3000/api/v1/install
 ```
+
+### Test of PUT
+```bash
+ curl -X PUT -H "Content-Type: application/json" -d '{"referralCode": "ref001", "status": "Canceled", "reward": "17"}' http://localhost:3000/api/v1/referral
+```
