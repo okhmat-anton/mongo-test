@@ -3,6 +3,8 @@ install:
 	docker exec nodejs-app-mongo-test bash -c "if [ ! -f .env ]; then cp .env.example .env; fi"
 	docker exec nodejs-app-mongo-test bash -c "npm install"
 	docker exec nodejs-app-mongo-test bash -c "npm run dev"
+	@sleep 5
+	@wget -qO- http://localhost:3000/api/v1/install
 
 start:
 	docker-compose -f ./mongo-test-docker/docker-compose.yml up -d

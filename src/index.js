@@ -15,7 +15,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
     .then(() => console.log('MongoDB connected successfully'))
     .catch(err => console.error('MongoDB connection error:', err));
 
-app.get('/install', async (req, res) => {
+app.get('/api/v1/install', async (req, res) => {
     const sampleData = [
         { referralCode: 'ref001', referrerId: 'user01', referredId: 'user02', status: 'Completed', reward: 10 },
         { referralCode: 'ref002', referrerId: 'user02', referredId: 'user03', status: 'Pending', reward: 15 },
@@ -38,7 +38,7 @@ app.get('/install', async (req, res) => {
 });
 
 // Define the GET route
-app.get('/referral', async (req, res) => {
+app.get('/api/v1/referral', async (req, res) => {
 
     const {referralCode} = req.query;
 

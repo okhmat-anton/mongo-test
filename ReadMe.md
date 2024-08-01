@@ -8,18 +8,18 @@ You don't have to complete that. We're more
 concerned with you completing 
 the DB structure and 1 route.
 
-### Make commands
-
-#### Install dependencies
+## How to run the project
 
 ```bash
 make install
 ```
 
+#### Call url
 ```bash
-make run
+http://localhost:3000/api/v1/referral?referralCode=ref001
 ```
 
+### if you don't have wget - run before calling the url
 ```bash
-make stop
+http://localhost:3000/api/v1/install
 ```
