@@ -1,0 +1,41 @@
+version: "3.6"
+
+services:
+
+  nodejs:
+    container_name: nodejs-app-mongo-test
+    restart: always
+    tty: true
+    build:
+      context: .
+      dockerfile: nodejs/dockerfile
+    volumes:
+      - ../src/:/usr/src/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    networks:
+      - nodejsMongoNetwork
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb-mongo-test
+    restart: always
+    tty: true
+    environment:
+      MONGO_INITDB_DATABASE: mongo_test
+    volumes:
+      - ../mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - nodejsMongoNetwork
+
+networks:
+  nodejsMongoNetwork:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local

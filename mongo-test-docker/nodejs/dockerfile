@@ -1,0 +1,11 @@
+# Use an official Node.js runtime as a parent image
+FROM node:latest
+
+# Set the working directory inside the container
+WORKDIR /usr/src/app
+
+# Copy the application code to the working directory
+COPY . .
+
+# Expose the port the app runs on
+EXPOSE 3000

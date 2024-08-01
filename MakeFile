@@ -1,0 +1,13 @@
+install:
+	docker-compose -f ./mongo-test-docker/docker-compose.yml up -d --build
+	docker exec nodejs-app-mongo-test bash -c "if [ ! -f .env ]; then cp .env.example .env; fi"
+	docker exec nodejs-app-mongo-test bash -c "npm install"
+	docker exec nodejs-app-mongo-test bash -c "npm run dev"
+
+start:
+	docker-compose -f ./mongo-test-docker/docker-compose.yml up -d
+	docker exec nodejs-app-mongo-test bash -c "npm install"
+	docker exec nodejs-app-mongo-test bash -c "npm run dev"
+
+stop:
+	docker-compose -f ./mongo-test-docker/docker-compose.yml down
